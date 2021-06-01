@@ -28,7 +28,7 @@ public class SetCommand extends Command {
             }
             if (args[1].equals("points")) {
                 Player player1 = Bukkit.getPlayer(args[1]);
-                playerManager.getProfile(player1).setHealth(Integer.parseInt(args[2]));
+                playerManager.getProfile(player1).setPoints(Integer.parseInt(args[2]));
                 player.sendMessage(Chat.format(Message.REQUEST_NULL.toString()));
             }
             if (args[1].equals("lives")) {
@@ -37,7 +37,7 @@ public class SetCommand extends Command {
                 player.sendMessage(Chat.format(Message.REQUEST_NULL.toString()));
             }
 
-            
+
 
         }
         return false;

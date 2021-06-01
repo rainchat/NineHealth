@@ -5,9 +5,7 @@ import com.rainchat.ninehealth.listeners.PlayerListeners;
 import com.rainchat.ninehealth.managers.FileManager;
 import com.rainchat.ninehealth.managers.PlayerManager;
 import com.rainchat.ninehealth.resource.commandsHealth.NineHealthCommand;
-import com.rainchat.ninehealth.resource.commandsHealth.subcommands.HelpCommand;
-import com.rainchat.ninehealth.resource.commandsHealth.subcommands.ReloadCommand;
-import com.rainchat.ninehealth.resource.commandsHealth.subcommands.SetCommand;
+import com.rainchat.ninehealth.resource.commandsHealth.subcommands.*;
 import com.rainchat.ninehealth.utilitis.global.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -49,6 +47,8 @@ public final class NineHealth extends JavaPlugin {
         NineHealthCommand villageCommand = new NineHealthCommand(this);
         villageCommand.initialise(
                 new SetCommand(playerManager),
+                new BuyCommand(playerManager),
+                new AddCommand(playerManager),
                 new ReloadCommand(playerManager),
                 new HelpCommand(villageCommand)
         );
