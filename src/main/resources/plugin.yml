@@ -1,0 +1,9 @@
+name: NineHealth
+version: ${project.version}
+main: com.rainchat.ninehealth.NineHealth
+api-version: 1.16
+authors: [ rainchat ]
+
+commands:
+  ninehealth:
+    description: ninehealth
