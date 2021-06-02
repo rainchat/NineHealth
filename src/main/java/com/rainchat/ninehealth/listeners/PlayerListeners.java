@@ -1,27 +1,19 @@
 package com.rainchat.ninehealth.listeners;
 
 import com.rainchat.ninehealth.api.placeholders.ArgsReplacements;
-import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.config.ConfigHealth;
 import com.rainchat.ninehealth.managers.PlayerManager;
 import com.rainchat.ninehealth.utilitis.global.Chat;
 import com.rainchat.ninehealth.utilitis.global.Message;
 import com.rainchat.ninehealth.utilitis.object.PlayerProgress;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityResurrectEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.util.Iterator;
 
 public class PlayerListeners implements Listener {
 
@@ -68,7 +60,7 @@ public class PlayerListeners implements Listener {
         Player player = (Player) e.getEntity();
         PlayerProgress playerHealth = playerManager.getProfile(player);
 
-        int x = ConfigVillage.TOTEM_USE.getRandom();
+        int x = ConfigHealth.TOTEM_USE.getRandom();
         playerHealth.addPoints(-x);
         if (playerHealth.getPoints() >= 0) {
             Chat.sendTranslation(player, true, Message.TOTEM_USE.toString(), new ArgsReplacements(String.valueOf(x),"0"));
@@ -93,7 +85,7 @@ public class PlayerListeners implements Listener {
         PlayerProgress playerHealth = playerManager.getProfile(player);
 
 
-        int x = ConfigVillage.ACHIEVEMENT_GET.getRandom();
+        int x = ConfigHealth.ACHIEVEMENT_GET.getRandom();
         playerHealth.addPoints(x);
         Chat.sendTranslation(player, true, Message.ACHIEVEMENT_GET.toString(), new ArgsReplacements(String.valueOf(x)));
 

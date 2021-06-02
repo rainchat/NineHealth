@@ -1,12 +1,11 @@
 package com.rainchat.ninehealth.resource.commandsHealth.subcommands;
 
 import com.rainchat.ninehealth.api.placeholders.ArgsReplacements;
-import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.config.ConfigHealth;
 import com.rainchat.ninehealth.managers.PlayerManager;
 import com.rainchat.ninehealth.utilitis.global.Chat;
 import com.rainchat.ninehealth.utilitis.global.Command;
 import com.rainchat.ninehealth.utilitis.global.Message;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -24,7 +23,7 @@ public class BuyCommand extends Command {
     @Override
     public boolean run(Player player, String[] args) {
 
-        int cost = playerManager.getProfile(player).getBoughtLives()* ConfigVillage.LIVES_COST_UPGRADE + ConfigVillage.LIVES_COST;
+        int cost = playerManager.getProfile(player).getBoughtLives()* ConfigHealth.LIVES_COST_UPGRADE + ConfigHealth.LIVES_COST;
 
         if (cost > playerManager.getProfile(player).getPoints()) {
             Chat.sendTranslation(player, true, Message.BUY_LIVES_NO_POINTS.toString(), new ArgsReplacements(String.valueOf(cost)));

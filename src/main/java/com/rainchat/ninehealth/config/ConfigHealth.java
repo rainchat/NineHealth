@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConfigVillage {
+public class ConfigHealth {
 
     public static int DEF_LIFE;
     public static int DEF_HEALTH;

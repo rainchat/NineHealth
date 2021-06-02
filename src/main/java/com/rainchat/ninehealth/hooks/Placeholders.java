@@ -2,7 +2,7 @@ package com.rainchat.ninehealth.hooks;
 
 
 import com.rainchat.ninehealth.NineHealth;
-import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.config.ConfigHealth;
 import com.rainchat.ninehealth.utilitis.object.PlayerProgress;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
@@ -99,7 +99,7 @@ public class Placeholders extends PlaceholderExpansion {
             return String.valueOf(playerProgress.getLives());
         }
         if (identifier.equalsIgnoreCase("buy")){
-            int cost = playerProgress.getBoughtLives()* ConfigVillage.LIVES_COST_UPGRADE + ConfigVillage.LIVES_COST;
+            int cost = playerProgress.getBoughtLives()* ConfigHealth.LIVES_COST_UPGRADE + ConfigHealth.LIVES_COST;
             return String.valueOf(cost);
         }
 

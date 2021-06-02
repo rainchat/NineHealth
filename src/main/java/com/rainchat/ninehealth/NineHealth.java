@@ -1,6 +1,6 @@
 package com.rainchat.ninehealth;
 
-import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.config.ConfigHealth;
 import com.rainchat.ninehealth.hooks.Placeholders;
 import com.rainchat.ninehealth.listeners.PlayerListeners;
 import com.rainchat.ninehealth.managers.FileManager;
@@ -41,7 +41,7 @@ public final class NineHealth extends JavaPlugin {
 
 
 
-        ConfigVillage.setup();
+        ConfigHealth.setup();
 
         playerManager = new PlayerManager(this);
         getServer().getPluginManager().registerEvents(new PlayerListeners(playerManager), this);

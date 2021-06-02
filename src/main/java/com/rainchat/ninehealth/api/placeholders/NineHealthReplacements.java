@@ -1,12 +1,9 @@
 package com.rainchat.ninehealth.api.placeholders;
 
 import com.rainchat.ninehealth.api.BaseReplacements;
-import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.config.ConfigHealth;
 import com.rainchat.ninehealth.utilitis.object.PlayerProgress;
 import org.bukkit.entity.Player;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class NineHealthReplacements extends BaseReplacements<Player> {
 
@@ -37,7 +34,7 @@ public class NineHealthReplacements extends BaseReplacements<Player> {
             return String.valueOf(playerProgress.getLives());
         }
         if (base.equalsIgnoreCase("buy")){
-            int cost = playerProgress.getBoughtLives()* ConfigVillage.LIVES_COST_UPGRADE + ConfigVillage.LIVES_COST;
+            int cost = playerProgress.getBoughtLives()* ConfigHealth.LIVES_COST_UPGRADE + ConfigHealth.LIVES_COST;
             return String.valueOf(cost);
         }
 
