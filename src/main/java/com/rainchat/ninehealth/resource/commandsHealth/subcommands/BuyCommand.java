@@ -1,11 +1,16 @@
 package com.rainchat.ninehealth.resource.commandsHealth.subcommands;
 
+import com.rainchat.ninehealth.api.placeholders.ArgsReplacements;
+import com.rainchat.ninehealth.config.ConfigVillage;
 import com.rainchat.ninehealth.managers.PlayerManager;
 import com.rainchat.ninehealth.utilitis.global.Chat;
 import com.rainchat.ninehealth.utilitis.global.Command;
 import com.rainchat.ninehealth.utilitis.global.Message;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class BuyCommand extends Command {
 
@@ -19,25 +24,24 @@ public class BuyCommand extends Command {
     @Override
     public boolean run(Player player, String[] args) {
 
-        if (args.length == 4) {
-            if (args[1].equals("health")) {
-                Player player1 = Bukkit.getPlayer(args[1]);
-                playerManager.getProfile(player1).setHealth(Integer.parseInt(args[2]));
-                player.sendMessage(Chat.format(Message.REQUEST_NULL.toString()));
-            }
-            if (args[1].equals("points")) {
-                Player player1 = Bukkit.getPlayer(args[1]);
-                playerManager.getProfile(player1).setPoints(Integer.parseInt(args[2]));
-                player.sendMessage(Chat.format(Message.REQUEST_NULL.toString()));
-            }
-            if (args[1].equals("lives")) {
-                Player player1 = Bukkit.getPlayer(args[1]);
-                playerManager.getProfile(player1).setLives(Integer.parseInt(args[2]));
-                player.sendMessage(Chat.format(Message.REQUEST_NULL.toString()));
-            }
+        int cost = playerManager.getProfile(player).getBoughtLives()* ConfigVillage.LIVES_COST_UPGRADE + ConfigVillage.LIVES_COST;
 
-
+        if (cost > playerManager.getProfile(player).getPoints()) {
+            Chat.sendTranslation(player, true, Message.BUY_LIVES_NO_POINTS.toString(), new ArgsReplacements(String.valueOf(cost)));
+            return false;
         }
+
+        playerManager.getProfile(player).addPoints(-cost);
+        playerManager.getProfile(player).addLives(1);
+        playerManager.getProfile(player).addBoughtLives(1);
+
+        Chat.sendTranslation(player, true, Message.BUY_LIVES.toString(), new ArgsReplacements(String.valueOf(cost)));
+
         return false;
+    }
+
+    @Override
+    public List<String> getTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
+        return null;
     }
 }

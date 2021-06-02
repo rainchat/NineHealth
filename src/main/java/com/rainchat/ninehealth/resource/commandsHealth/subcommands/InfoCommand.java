@@ -1,5 +1,7 @@
 package com.rainchat.ninehealth.resource.commandsHealth.subcommands;
 
+import com.rainchat.ninehealth.api.placeholders.ArgsReplacements;
+import com.rainchat.ninehealth.api.placeholders.NineHealthReplacements;
 import com.rainchat.ninehealth.managers.FileManager;
 import com.rainchat.ninehealth.managers.PlayerManager;
 import com.rainchat.ninehealth.utilitis.global.Chat;
@@ -10,19 +12,18 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ReloadCommand extends Command {
+public class InfoCommand extends Command {
 
     PlayerManager playerManager;
 
-    public ReloadCommand(PlayerManager playerManager) {
-        super("reload", "reload");
+    public InfoCommand(PlayerManager playerManager) {
+        super("info", "info <player>");
         this.playerManager = playerManager;
     }
 
     @Override
     public boolean run(Player player, String[] args) {
-        player.sendMessage(Chat.format(Message.RELOAD.toString()));
-        FileManager.getInstance().reloadAllFiles();
+        Chat.sendTranslation(player, true, Message.MENU_INFORMATION_LORE.toString(), new NineHealthReplacements(playerManager.getProfile(player)));
         return false;
     }
 

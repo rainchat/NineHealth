@@ -4,6 +4,7 @@ import com.rainchat.ninehealth.resource.commandsHealth.NineHealthCommand;
 import com.rainchat.ninehealth.utilitis.global.Chat;
 import com.rainchat.ninehealth.utilitis.global.Command;
 import com.rainchat.ninehealth.utilitis.global.Message;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class HelpCommand extends Command {
 
             List<String> stringList = new ArrayList<>();
 
-            nineHealthCommand.getCommands().forEach(command -> stringList.add("/village " + command.getUsage()));
+            nineHealthCommand.getCommands().forEach(command -> stringList.add("/ninehealth " + command.getUsage()));
             Collections.sort(stringList);
 
             for (int i = 0; i < stringList.size(); i++) {
@@ -67,5 +68,10 @@ public class HelpCommand extends Command {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<String> getTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
+        return null;
     }
 }

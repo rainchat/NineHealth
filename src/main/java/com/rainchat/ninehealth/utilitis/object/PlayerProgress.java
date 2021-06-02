@@ -6,6 +6,7 @@ public class PlayerProgress {
     private final String uuid;
     private int health;
     private int lives;
+    private int boughtLives;
     private int points;
 
 
@@ -28,6 +29,10 @@ public class PlayerProgress {
         this.points += values;
     }
 
+    public void addBoughtLives(int values) {
+        this.boughtLives += values;
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -44,6 +49,10 @@ public class PlayerProgress {
         return points;
     }
 
+    public int getBoughtLives() {
+        return boughtLives;
+    }
+
     public void setLives(int lives) {
         this.lives = lives;
     }
@@ -56,5 +65,8 @@ public class PlayerProgress {
         this.health = health;
     }
 
+    public void setBoughtLives(int values) {
+        this.boughtLives += values;
+    }
 
 }

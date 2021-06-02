@@ -1,6 +1,9 @@
 package com.rainchat.ninehealth.hooks;
 
 
+import com.rainchat.ninehealth.NineHealth;
+import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.utilitis.object.PlayerProgress;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 
@@ -37,7 +40,7 @@ public class Placeholders extends PlaceholderExpansion {
      */
     @Override
     public String getAuthor() {
-        return "StefTheDev";
+        return "rain_chat";
     }
 
     /**
@@ -51,7 +54,7 @@ public class Placeholders extends PlaceholderExpansion {
      */
     @Override
     public String getIdentifier() {
-        return "villages";
+        return "ninehealth";
     }
 
     /**
@@ -64,7 +67,7 @@ public class Placeholders extends PlaceholderExpansion {
      */
     @Override
     public String getVersion() {
-        return "5.5";
+        return "1.0";
     }
 
     /**
@@ -83,30 +86,24 @@ public class Placeholders extends PlaceholderExpansion {
         if (player == null)
             return "Only online players!";
 
-        /*
-        There is a weird bug with PAPI where, under certain circumstances, it seems to fail to see cached values and
-        queries the database. This is usually fine for something like chat, but it quickly becomes a massive issue for
-        tablists, scoreboards and other places that might display several placeholders simultaneously and update them
-        every tick, quickly racking up hundreds or thousands of queries per tick, on top of the normal runtime accesses
-        that EliteMobs does. At scale, this causes large issues. Hence, at least for now, PAPI does not have access to the
-        databases for safety purposes. All of the queries should be in memory regardless.
-         */
-/*
-        switch (identifier) {
+        PlayerProgress playerProgress = NineHealth.getPlayerManager().getProfile(player);
 
 
-
-            case "get_region":
-                Village village = villageManager.getVillage(player.getLocation().getChunk());
-                if (village != null){
-                    return (villageManager.getVillage(player.getLocation().getChunk()).getName() + "");
-                } else {
-                    return ("пустошь");
-                }
+        if (identifier.equalsIgnoreCase("health")){
+            return String.valueOf(playerProgress.getHealth());
         }
-*/
-        // We return null if an invalid placeholder (f.e. %someplugin_placeholder3%)
-        // was provided
+        if (identifier.equalsIgnoreCase("point")){
+            return String.valueOf(playerProgress.getPoints());
+        }
+        if (identifier.equalsIgnoreCase("lives")){
+            return String.valueOf(playerProgress.getLives());
+        }
+        if (identifier.equalsIgnoreCase("buy")){
+            int cost = playerProgress.getBoughtLives()* ConfigVillage.LIVES_COST_UPGRADE + ConfigVillage.LIVES_COST;
+            return String.valueOf(cost);
+        }
+
+
         return null;
     }
 

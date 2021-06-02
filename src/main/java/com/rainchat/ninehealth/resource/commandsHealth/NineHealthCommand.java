@@ -41,6 +41,11 @@ public class NineHealthCommand extends Command implements TabCompleter {
         return true;
     }
 
+    @Override
+    public List<String> getTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
+        return null;
+    }
+
     public void initialise(Command... commands) {
         this.commands.addAll(Arrays.asList(commands));
     }
@@ -53,7 +58,15 @@ public class NineHealthCommand extends Command implements TabCompleter {
     public List<String> onTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings) {
         List<String> list = new ArrayList<>();
         if(strings.length == 1) {
-            commands.forEach(subCommand -> list.add(subCommand.toString()));
+            List<String> finalList = list;
+            commands.forEach(subCommand -> finalList.add(subCommand.toString()));
+            list = finalList;
+        } else {
+            for (Command command1: commands) {
+                if (command1.toString().equals(strings[0])) {
+                    list = command1.getTabComplete(commandSender,command,s,strings);
+                }
+            }
         }
         return list;
     }

@@ -1,5 +1,6 @@
 package com.rainchat.ninehealth.utilitis.global;
 
+import com.rainchat.ninehealth.api.PlaceholderSupply;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;

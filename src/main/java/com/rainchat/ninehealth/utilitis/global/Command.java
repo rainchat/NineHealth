@@ -4,6 +4,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public abstract class Command implements CommandExecutor {
 
     private final String name, usage;
@@ -25,6 +27,8 @@ public abstract class Command implements CommandExecutor {
     public String getUsage() {
         return usage;
     }
+
+    public abstract List<String> getTabComplete(CommandSender commandSender, org.bukkit.command.Command command, String s, String[] strings);
 
     @Override
     public String toString() {

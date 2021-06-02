@@ -36,7 +36,6 @@ public class PermissionsMenu extends Menu {
     private ItemStack back() {
         return new Item()
                 .material(Material.PISTON)
-                .name(Message.MENU_INFORMATION_TITLE.toString())
                 .lore(Message.MENU_INFORMATION_LORE.toList())
                 .build();
     }

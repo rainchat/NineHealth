@@ -1,6 +1,7 @@
 package com.rainchat.ninehealth;
 
 import com.rainchat.ninehealth.config.ConfigVillage;
+import com.rainchat.ninehealth.hooks.Placeholders;
 import com.rainchat.ninehealth.listeners.PlayerListeners;
 import com.rainchat.ninehealth.managers.FileManager;
 import com.rainchat.ninehealth.managers.PlayerManager;
@@ -8,6 +9,7 @@ import com.rainchat.ninehealth.resource.commandsHealth.NineHealthCommand;
 import com.rainchat.ninehealth.resource.commandsHealth.subcommands.*;
 import com.rainchat.ninehealth.utilitis.global.Message;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,11 +40,12 @@ public final class NineHealth extends JavaPlugin {
                 .setup(this);
 
 
-        Message.setConfiguration(FileManager.Files.MESSAGES.getFile());
+
         ConfigVillage.setup();
 
         playerManager = new PlayerManager(this);
         getServer().getPluginManager().registerEvents(new PlayerListeners(playerManager), this);
+        registerMessages();
 
         NineHealthCommand villageCommand = new NineHealthCommand(this);
         villageCommand.initialise(
@@ -50,12 +53,17 @@ public final class NineHealth extends JavaPlugin {
                 new BuyCommand(playerManager),
                 new AddCommand(playerManager),
                 new ReloadCommand(playerManager),
+                new InfoCommand(playerManager),
                 new HelpCommand(villageCommand)
         );
 
         getLogger().info("Registered " + villageCommand.getCommands().size() + " sub-command(s).");
-
         Objects.requireNonNull(getCommand(villageCommand.toString())).setExecutor(villageCommand);
+
+        if(getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            getLogger().info("Successfully hooked into PlaceholderAPI.");
+            new Placeholders().register();
+        }
 
         for (Player player: Bukkit.getOnlinePlayers()){
             playerManager.createProfile(player);
@@ -69,5 +77,22 @@ public final class NineHealth extends JavaPlugin {
             playerManager.removeProfile(player);
         }
         // Plugin shutdown logic
+    }
+
+    private void registerMessages() {
+        FileConfiguration yaml = FileManager.Files.MESSAGES.getFile();
+        Message.setConfiguration(yaml);
+
+        int index = 0;
+        for (Message message : Message.values()) {
+            if (message.getList() != null) {
+                yaml.set(message.getPath(), message.getList());
+            } else {
+                index += 1;
+                yaml.set(message.getPath(), message.getDef());
+            }
+        }
+        fileManager.saveFile(FileManager.Files.MESSAGES);
+        getLogger().info("Registered " + index + " message(s).");
     }
 }
